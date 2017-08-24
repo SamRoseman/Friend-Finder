@@ -7,7 +7,11 @@ module.exports = function(app) {
     });
 
     app.post("/api", function(req, res) {
+//loop through my array and pick a friend
+//define new friend
         friendsData.push(req.body);
+//res.json the new friend
+
     })
 
 }

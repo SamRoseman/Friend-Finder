@@ -117,34 +117,38 @@
 });
 
     $(".submit").on("click", function(event){
+
         event.preventDefault();
 
-        var newFriend = {
+        var user = {
             name: $("#name").val().trim(),
             photolink: $("#photo-link").val().trim(),
             survey: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val()]
         };
-        console.log(newFriend);
+        console.log(user);
 
         var url = window.location.origin;
-        $.post(url + "/api", newFriend, function(data){
 
+        $.post(url + "/api", user, function(data){
+            console.log(data);
         });
-
+// display my firned in this post get rid of the get
         $.get(url + "/api", function(data) {
-            $("#friend").text(data[0].name);
-            $("#friendImg").attr("src", data[0].photo);
+            var x = Math.floor(Math.random()*3);
+            $("#friend").text(data[x].name);
+            $("#friendImg").attr("src", data[x].photo);
+
         })
 
-    $("#name").val("");
-    $("#photo-link").val("");
-    $("#q1").val("");
-    $("#q2").val("");
-    $("#q3").val("");
-    $("#q4").val("");
-    $("#q5").val("");
+        $("#name").val("");
+        $("#photo-link").val("");
+        $("#q1").val("");
+        $("#q2").val("");
+        $("#q3").val("");
+        $("#q4").val("");
+        $("#q5").val("");
+    });
 
-    })
 </script>
 
 </body>
