@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friend Finder</title>
+<!-- JQUERY LINK -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+<!-- Compiled and minified CSS  MATERIALZE-->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+<!-- Compiled and minified JavaScript MATERIALIZE-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <i class="material-icons prefix">face</i>
+              <input id="name" type="text" class="validate">
+              <label for="name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <i class="material-icons prefix">local_see</i>
+              <input id="photo-link" type="tel" class="validate">
+              <label for="photo-link">Photo Link</label>
+            </div>
+          </div>
+        </form>
+    </div>
+        <div class="input-field col s6">
+          <select id="q1">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1(Very Little)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5(Very Much)</option>
+          </select>
+            <label>Question 1: How much do you like cats?</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="q2">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1(Very Little)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5(Very Much)</option>
+          </select>
+            <label>Question 2: How much do you like glitter?</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="q3">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1(Very Little)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5(Very Much)</option>
+          </select>
+            <label>Question 3: How much do you like wine?</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="q4">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1(Very Little)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5(Very Much)</option>
+          </select>
+            <label>Question 4: How much do you like black?</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="q5">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">1(Very Little)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5(Very Much)</option>
+          </select>
+            <label>Question 5: How much do you like coffee?</label>
+        </div>
+
+        <div class="center-align">
+            <button type="submit" class="submit btn btn-primary waves-effect modal-trigger" href="#modal1">Submit</button>
+        </div>
+
+        <div id="modal1" class="modal modal-fixed-footer">
+            <div class="container modal-content">
+                <h4 class="col s12"id="friend"></h4>
+
+                <img class="col s12" id="friendImg"  style="height: 100%" src="">
+
+                <h5 style="float: right">Meet your new friend!</h5>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Yay</a>
+            </div>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+
+    $(document).ready(function(){
+        $('.modal').modal();
+});
+
+    $(".submit").on("click", function(event){
+        event.preventDefault();
+
+        var newFriend = {
+            name: $("#name").val().trim(),
+            photolink: $("#photo-link").val().trim(),
+            survey: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val()]
+        };
+        console.log(newFriend);
+
+        var url = window.location.origin;
+        $.post(url + "/api", newFriend, function(data){
+
+        });
+
+        $.get(url + "/api", function(data) {
+            $("#friend").text(data[0].name);
+            $("#friendImg").attr("src", data[0].photo);
+        })
+
+    $("#name").val("");
+    $("#photo-link").val("");
+    $("#q1").val("");
+    $("#q2").val("");
+    $("#q3").val("");
+    $("#q4").val("");
+    $("#q5").val("");
+
+    })
+</script>
+
+</body>
+</html>
